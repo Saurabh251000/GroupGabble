@@ -1,0 +1,45 @@
+:root {
+    --dark: #27374D;
+    --primary: #526D82;
+    --secondary: #9DB2BF;
+    --light : #DDE6ED;
+  }
+
+.row{
+    display:flex;
+    justify-content: space-between;
+    background-color: var(--light);
+    align-items: center;
+}
+#nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.nav , .row li a{
+    text-decoration: none;
+}
+#nav li{
+    margin: 0 20px;
+    padding: 10px 10px;
+    font-size: 18px; 
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#nav li:hover{
+    background-color: var(--primary);
+    color: var(--light);
+    border-radius: 10px;
+}
+
+#nav li a:hover{
+    color: var(--light);
+}
+ul .active{
+    background-color: rgb(33, 95, 33);
+    color: var(--light);
+    border-radius: 10px;
+}
+

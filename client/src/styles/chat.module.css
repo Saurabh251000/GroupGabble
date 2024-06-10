@@ -1,0 +1,115 @@
+:root {
+    --dark: #27374D;
+    --primary: #526D82;
+    --secondary: #9DB2BF;
+    --light : #DDE6ED;
+}
+
+.chat{
+    display: flex;
+    height:90vh;
+}
+.groupname{
+    background-color:var(--dark);
+    width:25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* padding: 0 40px; */
+}
+
+.partition{
+    width: 100%;
+    color: var(--light);
+    border-bottom: 1px solid var(--primary);
+    display: flex;
+    justify-content: space-between;
+}
+.component{
+    padding: 8px 0;
+    width: 50%;
+    text-align: center;
+    border-left:1px solid var(--primary);
+    cursor: pointer;
+}
+
+.group{
+    all: unset;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-size: 600;
+    color: var(--light);
+    border-bottom: 1px solid var(--primary);
+}
+.group:hover{
+    background-color: var(--primary);
+    opacity: 0.5;
+}
+.selected{
+    background-color:var(--primary);
+}
+
+.inputWrapper{
+    background-color: var(--secondary);
+    width:75%;
+    height: 100%;
+    position: relative;
+}
+.inpchat{
+    position:absolute;
+    display: flex;
+    align-items: center;
+    bottom:25px;
+    left: 20px;
+    border-radius: 10px;
+}
+.messeagebox{
+    border-radius: 10px;
+    border:solid 1px var(--primary);
+    padding:15px;
+    background-color: var(--light);
+    font-size: 16px;
+    box-shadow: 2px 2px 5px 0 var(--dark);
+}
+
+
+.sent{
+    all: unset;
+    margin-left: 20px;
+    border: 1px solid var(--primary);
+    padding: 10px;
+    border-radius: 8px ;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.sent:active{
+    background-color: green;
+}
+.sendicon{
+    padding-left: 5px;
+}
+
+/* Functionality */
+.Active{
+    background-color: black;
+}
+
+.Add{
+    all: unset;
+    position: absolute;
+    bottom: 40px;
+    padding: 8px 0;
+    text-align: center;
+    background-color: black;
+    color: var(--light);
+    width: 80%;
+    margin: 0 10%;
+    cursor: pointer;
+}
+.Hide{
+    display: none;
+}

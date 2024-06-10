@@ -1,0 +1,68 @@
+
+:root {
+  --dark: #27374D;
+  --primary: #526D82;
+  --secondary: #9DB2BF;
+  --light : #DDE6ED;
+}
+
+.List{
+  overflow: hidden;
+}
+
+.gpinfo{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+li{
+  list-style: none;
+}
+.edit{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--primary);
+  padding: 5px 10px;
+ 
+}
+.users{
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 300px;
+  font-size: 18px;
+}
+.Select{
+  cursor: pointer;
+}
+.arr{
+  text-align: center;
+  padding: 5px 0;
+  background-color: var(--primary);
+}
+.hide{
+  display: none;
+}
+.show{
+  visibility: visible;
+}
+.btnn{
+    all: unset;
+    border-radius: 5px;
+    width:auto;
+    font-size: 16px;
+    padding:5px 10px;
+    cursor: pointer;
+    border: 1px solid var(--dark);
+    display: flex;
+    align-items: center;
+}
+
+.Add:hover, .join:hover{
+  background-color: green;
+  color: var(--light);
+}
+.Dlt:hover, .Dltgp:hover ,.exit:hover{
+  background-color: rgb(255, 4, 4);
+  color: var(--light);
+}

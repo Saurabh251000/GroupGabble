@@ -1,0 +1,47 @@
+:root {
+  --dark: #27374D;
+  --primary: #526D82;
+  --secondary: #9DB2BF;
+  --light : #DDE6ED;
+}
+.profileContainer{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark);
+  height: 90vh;
+}
+/* .box{
+  width: 80%;
+  height: 100%;
+} */
+.infoContainer{
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 600px;
+  padding: 20px 0; 
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  align-items: center;
+}
+.username{
+  font-size: 28px;
+  color: var(--light);
+  /* margin-bottom: 20px; */
+}
+
+.info{
+  margin: 40px 0;
+  color: var(--light);
+}
+.logout{
+  all: unset;
+  color: var(--light);
+  background-color: var(--primary);
+  font-size: 18px;
+  padding: 8px 0 ;
+  text-align: center;
+  width: 80%;
+  border-radius: 5px;
+}
