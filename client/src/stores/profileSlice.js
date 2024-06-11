@@ -1,38 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  islogin: false,
+  userInfo: null,
+  fetchDone: false, // Added fetchDone to initial state
+};
+
 const profileSlice = createSlice({
   name: "profile",
-  initialState: {
-    islogin: false,
-    fetchDone: false,
-    name: "",
-    email: "",
-  },
+  initialState,
   reducers: {
-    LoginState: (state) => {
-      return {
-        ...state,
-        islogin: !state.islogin,
-      };
-      // return (!state.islogin);
+    LoginState(state) {
+      state.islogin = true;
     },
-    Updateinfo: (state, action) => {
-      // Destructure payload properties for clarity and potential validation
-      const { name, email } = action.payload;
-      // Update state values as instructed
-      return {
-        ...state,
-        name,
-        email,
-      };
+    LogoutState(state) {
+      state.islogin = false;
+      state.userInfo = null;
     },
-    MarkFetchDone: (state) => {
-      return {
-        ...state, fetchDone: !state.fetchDone
-      }
+    Updateinfo(state, action) {
+      state.userInfo = action.payload;
+    },
+    MarkFetchDone(state) {
+      state.fetchDone = !state.fetchDone; // Corrected state modification
     },
   }
-})
+});
 
 export const profileActions = profileSlice.actions;
-export default profileSlice;
+export default profileSlice.reducer;

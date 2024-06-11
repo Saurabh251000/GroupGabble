@@ -33,4 +33,4 @@ const groupSlice = createSlice({
 })
 
 export const groupAction = groupSlice.actions;
-export default groupSlice;
+export default groupSlice.reducer;

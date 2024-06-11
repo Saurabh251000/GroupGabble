@@ -4,25 +4,30 @@ import { profileActions } from "../stores/profileSlice";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const { name, email } = useSelector((store) => store.profile);
+  const { userInfo } = useSelector((store) => store.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const HandleOnclick = () => {
-    dispatch(profileActions.LoginState());
-    dispatch(profileActions.Updateinfo({ name: "", email: "" }));
+  const handleLogout = () => {
+    // Clear tokens from localStorage
+    localStorage.removeItem("accessToken");
+
+    // Clear user info from Redux store
+    dispatch(profileActions.LogoutState());
+
+    // Navigate to login page
     navigate("/login");
   };
+
   return (
     <div className="profileContainer">
       <div className="infoContainer">
-        <div className="username"> Hello! {name}</div>
+        <div className="username">Hello! {userInfo?.name}</div>
         <div className="info">
-          <div className="name">{name}</div>
-          <div className="email">{email}</div>
+          <div className="name">{userInfo?.name}</div>
+          <div className="email">{userInfo?.userName}</div>
         </div>
-
-        <button className="logout" onClick={HandleOnclick}>
+        <button className="logout" onClick={handleLogout}>
           Logout
         </button>
       </div>

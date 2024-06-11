@@ -48,14 +48,14 @@ export const login = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).json({ msg: "All fields required" });
+      return res.status(400).json({ error: "All fields required" });
     }
 
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ error: " User does not exist" });
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    console.log(isPasswordCorrect);
+    // console.log(isPasswordCorrect);
     if (!isPasswordCorrect) {
       return res.status(400).json({ error: "Incorrect password" });
     }

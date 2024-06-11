@@ -1,7 +1,10 @@
+
+/* eslint-disable */
 import { Link, Form, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import { useDispatch } from "react-redux";
 import { profileActions } from "../stores/profileSlice";
+import { jwtDecode } from 'jwt-decode';
 
 function Login() {
   const navigate = useNavigate();
@@ -12,7 +15,7 @@ function Login() {
 
     const formData = new FormData(e.target);
     const postData = Object.fromEntries(formData);
-    // console.log(postData);
+
     try {
       const response = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
@@ -22,22 +25,32 @@ function Login() {
         body: JSON.stringify(postData),
       });
 
-      console.log(response);
+      const data = await response.json();
+
       if (response.ok) {
-        const responseData = await response.json();
-        if (responseData.Status === "Success") {
+        const { accessToken } = data;
+
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+
+          // Decode the token to get user information
+          const decodedToken = jwtDecode(accessToken);
+          const userInfo = {
+            userId: decodedToken.UserInfo.userid,
+            userName: decodedToken.UserInfo.userName,
+            name: decodedToken.UserInfo.name,
+          };
+
+          // Dispatch actions to update login state and user info
           dispatch(profileActions.LoginState());
-          dispatch(profileActions.Updateinfo(responseData));
+          dispatch(profileActions.Updateinfo(userInfo));
+
           navigate("/chats");
-        } else {
-          alert("Incorrect password or username"); // Inform user about incorrect credentials
         }
       } else {
-        alert("Failed to log in. Please try again later."); // Handle other errors
+        alert(data.error || "Incorrect password or username");
       }
     } catch (error) {
-      // console.error(error);
-      // Handle error, show error message, etc.
       alert(error);
     }
   };
