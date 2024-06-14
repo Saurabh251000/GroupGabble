@@ -1,23 +1,28 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  username : {
+  username: {
     type: String,
     required: true,
   },
-  password:{
-    type:String,
-    required:true,
-    minlength:6
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
   },
-  name:{
-    type: String ,
+  name: {
+    type: String,
     required: true,
   },
-	friendlist : {
-		type : Array,
-	},
+  friendlist: {
+    type: Array,
+  },
 });
+
+const User = mongoose.model("User", userSchema);
+
+export default User;
+
 
 // userSchema.methods.generateAccessToken = function () {
 // 	const token = jwt.sign(
@@ -42,8 +47,4 @@ const userSchema = new mongoose.Schema({
 // 			expiresIn: "7d",
 // 		}
 // 	);
-// };
-
-const User = mongoose.model("User",userSchema);
-
-export default User;
+// }

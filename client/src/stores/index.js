@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import profileSlice from './profileSlice';
 import groupSlice from './groupSlice';
+import friendsSlice from './friendsSlice';
 
 const chatStore = configureStore({
   reducer: {
-    user: userSlice,
+    users: userSlice,
     profile: profileSlice,
     groups: groupSlice,
+    friends: friendsSlice,
   }
 })
 

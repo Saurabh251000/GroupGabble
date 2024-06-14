@@ -16,6 +16,7 @@ const profileSlice = createSlice({
     LogoutState(state) {
       state.islogin = false;
       state.userInfo = null;
+      // return;
     },
     Updateinfo(state, action) {
       state.userInfo = action.payload;

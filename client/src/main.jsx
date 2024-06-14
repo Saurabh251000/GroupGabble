@@ -1,11 +1,11 @@
 /* eslint-disable */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./routes/App.jsx";
 import "./styles/index.css";
 import { RouterProvider, createBrowserRouter, useNavigate } from "react-router-dom";
 import Chat from "./routes/chats.jsx";
-import Setting, { FetchGroupData } from "./routes/settings.jsx";
+import Setting from "./routes/settings.jsx";
 import Home from "./routes/home.jsx";
 import Login from "./routes/Login.jsx";
 import SignUp from "./routes/SignUp.jsx";
@@ -13,23 +13,26 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import chatStore from "./stores/index.js";
 import Profile from "./routes/Profile.jsx";
 import { profileActions } from "./stores/profileSlice";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
+// import { useFetchUsers, useFetchGroups, useFetchUserData } from './hooks/useFetchData';
+import Loading from './components/Loading.jsx'; // Import the loading component
 
 const AuthRoute = ({ element }) => {
   const { islogin } = useSelector((store) => store.profile);
   return islogin ? element : <Login />;
 };
 
-const checkToken = async (dispatch, navigate) => {
+const checkToken = async (dispatch, navigate, setLoading) => {
   let token = localStorage.getItem("accessToken");
   if (!token) {
     navigate("/login");
+    setLoading(false); // Stop loading
     return;
   }
 
   // Check if token is expired and refresh if necessary
   const isTokenExpired = (token) => {
-    const payload = JSON.parse(atob(token.split(".")[1]));
+    const payload = jwtDecode(token);
     const expiry = payload.exp;
     const now = Math.floor(Date.now() / 1000);
     return now >= expiry;
@@ -48,9 +51,13 @@ const checkToken = async (dispatch, navigate) => {
         localStorage.setItem("accessToken", token);
       } else {
         navigate("/login");
+        setLoading(false); // Stop loading
+        return;
       }
     } catch (error) {
       navigate("/login");
+      setLoading(false); // Stop loading
+      return;
     }
   }
 
@@ -65,15 +72,27 @@ const checkToken = async (dispatch, navigate) => {
   dispatch(profileActions.LoginState());
   dispatch(profileActions.Updateinfo(userInfo));
   dispatch(profileActions.MarkFetchDone());
+  setLoading(false); // Stop loading after data is fetched
 };
 
 const AppWithAuthCheck = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true); // Manage loading state
+
+  // Use custom hooks to fetch data
+  // useFetchUsers();
+  // useFetchGroups();
+  // const { userInfo } = useSelector((store) => store.profile);
+  // useFetchUserData(userInfo?.userName);
 
   useEffect(() => {
-    checkToken(dispatch, navigate);
+    checkToken(dispatch, navigate, setLoading);
   }, [dispatch, navigate]);
+
+  if (loading) {
+    return <Loading />; // Show loading component while data is being fetched
+  }
 
   return <App />;
 };
@@ -90,12 +109,10 @@ const router = createBrowserRouter([
       {
         path: "/chats",
         element: <AuthRoute element={<Chat />} />,
-        loader: FetchGroupData,
       },
       {
         path: "/setting",
         element: <AuthRoute element={<Setting />} />,
-        loader: FetchGroupData,
       },
       {
         path: "/login",

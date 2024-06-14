@@ -24,8 +24,8 @@ function Profile() {
       <div className="infoContainer">
         <div className="username">Hello! {userInfo?.name}</div>
         <div className="info">
-          <div className="name">{userInfo?.name}</div>
-          <div className="email">{userInfo?.userName}</div>
+          <div className="name">Fullname : {userInfo?.name}</div>
+          <div className="email">Username : {userInfo?.userName}</div>
         </div>
         <button className="logout" onClick={handleLogout}>
           Logout
