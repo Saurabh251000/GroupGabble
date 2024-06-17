@@ -10,13 +10,15 @@ const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
     methods: ["GET", "POST"],
-    credentials: true // Allow credentials to be sent
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
   }
 });
 
+
 app.use(cors({
   origin: "http://localhost:5173",
-  credentials: true // Allow credentials to be sent
+  credentials: true,
 }));
 
 const userSocketMap = {};

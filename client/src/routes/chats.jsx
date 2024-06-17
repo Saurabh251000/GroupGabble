@@ -5,10 +5,12 @@ import Loading from "../components/Loading.jsx";
 import MessageContainer from "../components/MessageContainer.jsx";
 import UsersGroup from "../components/UsersGroup.jsx";
 import useGetData from "../hooks/useGetData.js";
+import Nochat from "../components/Nochat.jsx";
 function Chat() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [isGroup, setIsGroup] = useState(true);
+  const [recieverID, setRecieverID] = useState(null);
   const { isLoading } = useGetData();
 
   const LOADING = (
@@ -27,13 +29,16 @@ function Chat() {
           setSelectedFriend={setSelectedFriend}
           selectedGroup={selectedGroup}
           setSelectedGroup={setSelectedGroup}
+          setRecieverID={setRecieverID}
         />
         {/* conversation container starts here -------- */}
-        <MessageContainer
+        {(!selectedGroup && !selectedFriend) ? <Nochat /> : <MessageContainer
           isGroup={isGroup}
           selectedFriend={selectedFriend}
           selectedGroup={selectedGroup}
-        />
+          recieverID={recieverID}
+        />}
+
       </div>
     </>
   );

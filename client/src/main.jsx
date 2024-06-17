@@ -16,6 +16,7 @@ import { profileActions } from "./stores/profileSlice";
 import { jwtDecode } from 'jwt-decode';
 // import { useFetchUsers, useFetchGroups, useFetchUserData } from './hooks/useFetchData';
 import Loading from './components/Loading.jsx'; // Import the loading component
+import { SocketContextProvider } from "./context/SocketContext.jsx";
 
 const AuthRoute = ({ element }) => {
   const { islogin } = useSelector((store) => store.profile);
@@ -133,7 +134,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={chatStore}>
-      <RouterProvider router={router} />
+      <SocketContextProvider>
+        <RouterProvider router={router} />
+      </SocketContextProvider>
     </Provider>
   </React.StrictMode>
 );

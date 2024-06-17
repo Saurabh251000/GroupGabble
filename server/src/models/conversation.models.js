@@ -7,8 +7,9 @@ const conversationSchema = new mongoose.Schema({
   },
   receiverid: {
     type: String,
+    required: true,
   },
-  message: {
+  messages: {
     type: Array,
   }
 })

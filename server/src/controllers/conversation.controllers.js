@@ -5,66 +5,69 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 
 // Chat in group
 export const groupchat = asyncHandler(async (req, res) => {
-  const { groupid, text, senderid } = req.body;
+
+  const { message } = req.body;
+  // console.log("GP Message : ", message);
   try {
-    let groupChat = await GroupChat.findOne({ groupid });
+    let groupChat = await GroupChat.findOne({ groupid: message.groupid });
 
-    const newMessage = { senderid, text, timestamp: new Date() };
+    // const newMessage = { senderid, text, timestamp: new Date() };
 
+    // console.log(groupChat, "Yanha Tak Sahi Hai Bro");
     if (!groupChat) {
       groupChat = await GroupChat.create({
-        groupid,
-        messages: [newMessage],
+        groupid: message.groupid,
+        messages: [],
       });
-    } else {
-      groupChat.messages.push(newMessage);
-      await groupChat.save();
     }
+    groupChat.messages.push(message);
+    await groupChat.save();
+
 
     // Emit message to all users in the group
-    io.to(groupid).emit("receiveGroupMessage", newMessage);
+    io.to(message.groupid).emit("receiveGroupMessage", message);
 
-    res.status(201).json(newMessage);
+    return res.status(201).json(message);
   } catch (error) {
     console.log("error in sent message controller", error.message);
-    res.status(500).json({ error: "internal server error" });
+    return res.status(500).json({ error: "internal server error" });
   }
 });
 
 // Chat with friend in personal room
 export const chats = asyncHandler(async (req, res) => {
-  const { receiverid, senderid, text } = req.body;
+  const { message } = req.body;
   try {
     let conversation = await Conversation.findOne({
       $or: [
-        { receiverid: receiverid, senderid: senderid },
-        { receiverid: senderid, senderid: receiverid },
+        { receiverid: message.receiverid, senderid: message.senderid },
+        { receiverid: message.senderid, senderid: message.receiverid },
       ],
     });
 
-    const newMessage = { senderid, text, timestamp: new Date() };
+    // const newMessage = { senderid, text, timestamp: new Date() };
 
     if (!conversation) {
       conversation = await Conversation.create({
-        senderid,
-        receiverid,
-        messages: [newMessage],
+        senderid: message.senderid,
+        receiverid: message.receiverid,
+        messages: [],
       });
-    } else {
-      conversation.messages.push(newMessage);
-      await conversation.save();
     }
+    conversation.messages.push(message);
+    await conversation.save();
+
 
     // Emit message to the receiver
-    const receiverSocketId = getReceiverSocketId(receiverid);
+    const receiverSocketId = getReceiverSocketId(message.receiverid);
     if (receiverSocketId) {
-      io.to(receiverSocketId).emit("receiveDirectMessage", newMessage);
+      io.to(receiverSocketId).emit("receiveDirectMessage", message);
     }
 
-    res.status(201).json(newMessage);
+    return res.status(201).json(message);
   } catch (error) {
     console.log("error in sent message controller", error.message);
-    res.status(500).json({ error: "internal server error" });
+    return res.status(500).json({ error: "internal server error" });
   }
 });
 
@@ -73,10 +76,10 @@ export const gpmessages = asyncHandler(async (req, res) => {
   const { groupid } = req.body;
   try {
     const messages = await GroupChat.findOne({ groupid });
-    res.json(messages);
+    return res.json(messages);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -90,9 +93,9 @@ export const chatmessages = asyncHandler(async (req, res) => {
         { receiverid: senderid, senderid: receiverid },
       ],
     });
-    res.json(messages);
+    return res.json(messages);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });

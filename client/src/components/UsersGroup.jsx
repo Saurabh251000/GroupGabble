@@ -8,19 +8,18 @@ import { useSelector } from "react-redux";
 import { addRemoveFriend } from "../hooks/useActions";
 import useGetData from "../hooks/useGetData";
 
-function UsersGroup({ isGroup, setIsGroup, selectedGroup, setSelectedGroup, selectedFriend, setSelectedFriend }) {
+function UsersGroup({ isGroup, setIsGroup, selectedGroup, setSelectedGroup, selectedFriend, setSelectedFriend, setRecieverID }) {
   const { userInfo } = useSelector((store) => store.profile);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isAddFriend, setIsAddFriend] = useState(false);
   const navigate = useNavigate();
-  const [recieverID, setRecieverID] = useState("");
   const { groupsData, friendList, usersList, error } = useGetData();
 
   if (error) return (<>{error}</>);
   // console.log("Selected Friend : ", selectedFriend);
   // console.log("Selected Group : ", selectedGroup);
 
-  console.log(recieverID, "Reciever Id aa gya bhaiya");
+  // console.log(recieverID, "Reciever Id aa gya bhaiya");
 
   useEffect(() => {
     const fetchUserId = async () => {

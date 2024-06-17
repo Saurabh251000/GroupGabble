@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 // const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Replace with your client's origin
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
     res.setHeader("Access-Control-Allow-Credentials", true);
     res.setHeader(
         "Access-Control-Allow-Methods",
