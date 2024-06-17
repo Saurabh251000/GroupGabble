@@ -41,7 +41,7 @@ const checkToken = async (dispatch, navigate, setLoading) => {
 
   if (isTokenExpired(token)) {
     try {
-      const response = await fetch("http://localhost:3000/auth/refresh", {
+      const response = await fetch("https://group-gabble-server.vercel.app/auth/refresh", {
         method: "POST",
         credentials: "include",
       });
