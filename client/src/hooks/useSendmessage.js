@@ -12,7 +12,7 @@ const useSendmessage = (message) => {
       const postData = {
         message,
       }
-      const response = await fetch('http://localhost:3000/conversation/chats', {
+      const response = await fetch('https://group-gabble-server.vercel.app/conversation/chats', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
