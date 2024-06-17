@@ -7,6 +7,9 @@ import groupRouter from './src/routes/group.routes.js';
 import authRouter from './src/routes/auth.routes.js';
 import userRouter from './src/routes/user.routes.js';
 import conversationRouter from './src/routes/conversation.routes.js';
+import path from "path";
+
+const __dirname = path.resolve();
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -32,6 +35,12 @@ app.use("/user", userRouter);
 app.use("/group", groupRouter);
 app.use("/conversation", conversationRouter);
 
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 const connect = async () => {
     try {
