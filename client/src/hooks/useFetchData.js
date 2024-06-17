@@ -13,15 +13,15 @@ const useFetchData = async (url) => {
 };
 
 export const useFetchUsers = async () => {
-  return await useFetchData('http://localhost:3000/user/users');
+  return await useFetchData('https://group-gabble-server.vercel.app/user/users');
 };
 
 export const useFetchGroups = async () => {
-  return await useFetchData('http://localhost:3000/group/groups');
+  return await useFetchData('https://group-gabble-server.vercel.app/group/groups');
 };
 
 export const useFetchFriends = async (username) => {
-  return await useFetchData(`http://localhost:3000/user/friends?username=${username}`);
+  return await useFetchData(`https://group-gabble-server.vercel.app/user/friends?username=${username}`);
 };
 
 
