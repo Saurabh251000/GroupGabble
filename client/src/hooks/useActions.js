@@ -8,7 +8,7 @@ export const addRemoveFriend = async (username, friend, action, navigate) => {
   };
 
   try {
-    const response = await fetch("http://localhost:3000/user/friendaction", {
+    const response = await fetch("https://group-gabble-server.vercel.app/user/friendaction", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(postData),
