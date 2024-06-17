@@ -10,7 +10,7 @@ function SignUp() {
     const postData = Object.fromEntries(formData);
     console.log(postData);
     try {
-      const response = await fetch("http://localhost:3000/auth/signup", {
+      const response = await fetch("https://group-gabble-server.vercel.app/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
