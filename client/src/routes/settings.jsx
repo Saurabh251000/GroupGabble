@@ -48,7 +48,7 @@ function Setting() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/group/create", {
+      const response = await fetch("https://group-gabble-server.vercel.app/group/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
