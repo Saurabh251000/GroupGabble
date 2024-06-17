@@ -11,7 +11,7 @@ const useSendGroupMessage = () => {
       const postData = {
         message,
       }
-      const response = await fetch('http://localhost:3000/conversation/groupchat', {
+      const response = await fetch('https://group-gabble-server.vercel.app/conversation/groupchat', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
