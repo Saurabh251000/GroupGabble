@@ -7,57 +7,54 @@ import groupRouter from './src/routes/group.routes.js';
 import authRouter from './src/routes/auth.routes.js';
 import userRouter from './src/routes/user.routes.js';
 import conversationRouter from './src/routes/conversation.routes.js';
-import path from "path";
+import path from 'path';
 
 const __dirname = path.resolve();
 
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
+
 const PORT = process.env.PORT || 3001;
 
-// const app = express();
 app.use(express.json());
+
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://group-gabble-client.vercel.app");
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, OPTIONS"
-    );
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader('Access-Control-Allow-Origin', 'https://group-gabble-client.vercel.app');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
+
 app.use(cors());
 app.use(cookieParser());
 
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
-app.use("/group", groupRouter);
-app.use("/conversation", conversationRouter);
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/group', groupRouter);
+app.use('/conversation', conversationRouter);
 
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
-// app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
 
 const connect = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        // console.log("hn bhai aage dekh");
+        await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Connected to MongoDB');
         server.listen(PORT, () => {
-            console.log(
-                `Server is running on port ${PORT} \n http://localhost:${PORT}`
-            );
-        })
+            console.log(`Server is running on port ${PORT} \n http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error('Error while connecting to MongoDB:', error.message);
     }
-    catch (error) {
-        console.log("error while connecting to mongoDB")
-    }
-}
+};
 
 connect();
+
 
 
 // const io = new Server(server, {
