@@ -21,7 +21,7 @@ const useGetMessages = (recieverID) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/conversation/chatmessages', {
+        const response = await fetch('https://group-gabble-server.vercel.app/conversation/chatmessages', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
