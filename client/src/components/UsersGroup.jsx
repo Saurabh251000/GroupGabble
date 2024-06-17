@@ -26,7 +26,7 @@ function UsersGroup({ isGroup, setIsGroup, selectedGroup, setSelectedGroup, sele
       if (!selectedFriend) return;
 
       try {
-        const response = await fetch(`http://localhost:3000/user/userid?username=${selectedFriend}`);
+        const response = await fetch(`https://group-gabble-server.vercel.app/user/userid?username=${selectedFriend}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
