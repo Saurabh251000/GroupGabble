@@ -14,7 +14,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (userInfo) {
-      const socket = io('http://localhost:3000', {
+      const socket = io('https://group-gabble-server.vercel.app', {
         query: {
           userId: userInfo.userId,
         },
